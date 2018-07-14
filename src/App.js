@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Login from './components/Login';
+import Buzzer from './components/Buzzer.js';
 import logo from './logo.svg';
 import './App.css';
 
@@ -14,6 +15,7 @@ class App extends Component {
           <h1 className="App-title">Beer Buzzer</h1>
         </header>
           <Login />
+          <Buzzer />
       </div>
     );
   }
