@@ -33,14 +33,14 @@ class Login extends Component {
             <DialogTitle id="simple-dialog-title">Who are you?</DialogTitle>
             <div>
                 <List>
-                    { users.map(name => (
-                        <ListItem button onClick={() => this.handleClose(name)} key={ name }>
+                    { users.map(user => (
+                        <ListItem button onClick={() => this.handleClose(user)} key={ user.name }>
                             <ListItemAvatar>
                                 <Avatar className={classes.avatar}>
                                     <PersonIcon />
                                 </Avatar>
                             </ListItemAvatar>
-                            <ListItemText primary={ name }/>
+                            <ListItemText primary={ user.name }/>
                         </ListItem>
                     ))}
                 </List>
@@ -48,13 +48,13 @@ class Login extends Component {
         </Dialog>
     }
 
-    handleClose = (value) => this.setState({username: value});
+    handleClose = (user) => this.setState({username: user.name, role: user.role});
 }
 
 const styles = {
     avatar: {
-        backgroundColor: blue[100],
-        color: blue[600],
+        backgroundColor: blue[800],
+        color: blue[100],
     },
 };
 
