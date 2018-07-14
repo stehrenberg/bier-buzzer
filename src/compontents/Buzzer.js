@@ -1,42 +1,35 @@
-/**
- * Created by Steff on 14/07/18.
- */
 import React from 'react';
-import BuzzerOff from '../assets/img/button-off.gif';
-import BuzzerOn from '../assets/img/button-on.gif';
+import BuzzerImage from './BuzzerImage.js';
+import BuzzerSound from './BuzzerSound.js';
 
 class Buzzer extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            buzzer: BuzzerOff
-        }
+  constructor(props) {
+    super(props);
+    this.state = {
+      playSound: false
     }
+  }
 
-    onMouseOver() {
-        this.setState({
-            buzzer: BuzzerOn
-        });
-    }
+  onBuzz() {
+    this.setState({
+      playSound: true
+    });
+  }
 
-    onMouseOut() {
-        this.setState({
-            buzzer: BuzzerOff
-        });
-    }
+  onSoundPlayFinished() {
+    this.setState({
+      playSound: false
+    });
+  }
 
-    render() {
-        return (
-            <img
-                src={this.state.buzzer}
-                className="Buzzer"
-                alt="Buzz!"
-                onMouseOver={() => this.onMouseOver()}
-                onMouseOut={() => this.onMouseOut()}
-            />
-        );
-    }
+  render() {
+    return (
+      <div>
+        <BuzzerImage onBuzz={() => this.onBuzz()} />
+        <BuzzerSound playSound={this.state.playSound} onFinish={() => this.onSoundPlayFinished()} />
+      </div>
+    );
+  }
 }
 
 export default Buzzer;
