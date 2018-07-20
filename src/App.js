@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Login from './components/Login';
 import Buzzer from './components/Buzzer.js';
-import logo from './logo.svg';
+import logo from './style-altbier.svg';
 import './App.css';
 import Logout from '@material-ui/icons/LockOpen';
 import localStorageConfig from './config/localStorage.js';
