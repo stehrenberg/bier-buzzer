@@ -12,15 +12,16 @@ import PersonIcon from '@material-ui/icons/Person';
 import blue from '@material-ui/core/colors/blue';
 
 import users from '../config/users';
+import localStorageConfig from '../config/localStorage.js';
 
 class Login extends Component {
 
     constructor(props) {
         super(props);
 
-        const username = localStorage.getItem("user") || null;
-        const points = localStorage.getItem("points") || 0;
-        const role = localStorage.getItem("role") || null;
+        const username = localStorage.getItem(localStorageConfig.USERNAME) || null;
+        const points = localStorage.getItem(localStorageConfig.POINTS) || 0;
+        const role = localStorage.getItem(localStorageConfig.ROLE) || null;
 
         this.state = {username, points, role};
     }
@@ -48,7 +49,12 @@ class Login extends Component {
         </Dialog>
     }
 
-    handleClose = (user) => this.setState({username: user.name, role: user.role});
+    handleClose = (user) => {
+      this.setState({username: user.name, role: user.role});
+      localStorage.setItem(localStorageConfig.USERNAME, user.name);
+      localStorage.setItem(localStorageConfig.ROLE, user.role);
+      localStorage.setItem(localStorageConfig.POINTS, 0);
+    }
 }
 
 const styles = {

@@ -2,6 +2,7 @@ import React from 'react';
 import BuzzerImage from './BuzzerImage.js';
 import BuzzerSound from './BuzzerSound.js';
 import Sockette from 'sockette';
+import localStorageConfig from '../config/localStorage.js';
 
 class Buzzer extends React.Component {
   constructor(props) {
@@ -16,10 +17,10 @@ class Buzzer extends React.Component {
     };
   }
 
-  onBuzz(user) {
+  onBuzz() {
     this.connection.json({
       type: 'buzz',
-      user: 'Sebastian'
+      user: localStorage.getItem(localStorageConfig.USERNAME)
     });
   }
 
