@@ -1,16 +1,31 @@
 import React from 'react';
 import BuzzerImage from './BuzzerImage.js';
 import BuzzerSound from './BuzzerSound.js';
+import Sockette from 'sockette';
 
 class Buzzer extends React.Component {
   constructor(props) {
     super(props);
+
+    this.connection = new Sockette('ws://localhost:8080', {
+      onmessage: this.onMessage.bind(this)
+    });
+
     this.state = {
       playSound: false
-    }
+    };
   }
 
-  onBuzz() {
+  onBuzz(user) {
+    this.connection.json({
+      type: 'buzz',
+      user: 'horst'
+    });
+  }
+
+  onMessage(message) {
+    console.log(message.data);
+
     this.setState({
       playSound: true
     });
@@ -21,6 +36,7 @@ class Buzzer extends React.Component {
       playSound: false
     });
   }
+
 
   render() {
     return (

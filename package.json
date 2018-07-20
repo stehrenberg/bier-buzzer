@@ -5,6 +5,7 @@
   "dependencies": {
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "sockette": "^2.0.0",
     "websocket": "^1.0.26"
   },
   "devDependencies": {
