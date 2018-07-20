@@ -18,7 +18,13 @@ wsServer.on('request', request => {
   wsConnections.push(connection);
 
   connection.on('message', message => {
-    console.log(message);
+    if (!message.utf8Data) {
+      return;
+    }
+
+    wsConnections.forEach(wsConnection => {
+      wsConnection.sendUTF(message.utf8Data);
+    })
   });
 
   connection.on('close', () => {
