@@ -12,28 +12,27 @@ class Buzzer extends React.Component {
     });
 
     this.state = {
-      playSound: false
+      buzzUser: null
     };
   }
 
   onBuzz(user) {
     this.connection.json({
       type: 'buzz',
-      user: 'horst'
+      user: 'Sebastian'
     });
   }
 
   onMessage(message) {
-    console.log(message.data);
-
+    const messageData = JSON.parse(message.data);
     this.setState({
-      playSound: true
+      buzzUser: messageData.user
     });
   }
 
   onSoundPlayFinished() {
     this.setState({
-      playSound: false
+      buzzUser: null
     });
   }
 
@@ -42,7 +41,7 @@ class Buzzer extends React.Component {
     return (
       <div>
         <BuzzerImage onBuzz={() => this.onBuzz()} />
-        <BuzzerSound playSound={this.state.playSound} onFinish={() => this.onSoundPlayFinished()} />
+        <BuzzerSound buzzUser={this.state.buzzUser} onFinish={() => this.onSoundPlayFinished()} />
       </div>
     );
   }
