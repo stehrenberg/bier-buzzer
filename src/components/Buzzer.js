@@ -2,6 +2,7 @@ import React from 'react';
 import BuzzerImage from './BuzzerImage.js';
 import BuzzerSound from './BuzzerSound.js';
 import LastBuzz from './LastBuzz.js';
+import NoConnection from './NoConnection.js';
 import Sockette from 'sockette';
 import localStorageConfig from '../config/localStorage.js';
 import roles from '../config/roles.js';
@@ -12,12 +13,27 @@ class Buzzer extends React.Component {
 
     this.connection = new Sockette('ws://localhost:8080', {
       onmessage: this.onMessage.bind(this),
-      onclose: () => console.log('o noes!')
+      onopen: this.onConnectionEstablished.bind(this),
+      onclose: this.onConnectionLost.bind(this),
+      onreconnect: this.onConnectionLost.bind(this)
     });
 
     this.state = {
-      buzzUser: null
+      buzzUser: null,
+      hasConnection: false
     };
+  }
+
+  onConnectionLost() {
+    this.setState({
+      hasConnection: false
+    });
+  }
+
+  onConnectionEstablished() {
+    this.setState({
+      hasConnection: true
+    });
   }
 
   onBuzz() {
@@ -51,6 +67,7 @@ class Buzzer extends React.Component {
 
     return (
       <div>
+        <NoConnection hasConnection={this.state.hasConnection} />
         { isUserPlayer && <BuzzerImage onBuzz={() => this.onBuzz()} /> }
         { isUserHost && <LastBuzz buzzUser={this.state.buzzUser} reset={this.reset.bind(this)} /> }
         <BuzzerSound buzzUser={this.state.buzzUser} onFinish={() => this.onSoundPlayFinished()} />
