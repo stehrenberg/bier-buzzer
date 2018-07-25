@@ -60,10 +60,12 @@ class Buzzer extends React.Component {
       return;
     }
 
-    this.setState({
-      buzzUser: messageData.user,
-      isOpen: false
-    });
+    if (messageData.type === 'buzz') {
+      this.setState({
+        buzzUser: messageData.user,
+        isOpen: false
+      });
+    }
   }
 
   onSoundPlayFinished() {
@@ -81,12 +83,14 @@ class Buzzer extends React.Component {
     const isUserPlayer = (userRole === roles.ROLE_PLAYER);
     const isUserHost = (userRole === roles.ROLE_HOST);
 
+    const hasConnection = this.state.hasConnection;
+
     return (
       <div>
         <NoConnection hasConnection={this.state.hasConnection} />
         { isUserPlayer && <BuzzerImage onBuzz={() => this.onBuzz()} /> }
         { isUserHost && <LastBuzz buzzUser={this.state.buzzUser} reset={this.reset.bind(this)} /> }
-        <BuzzerSound buzzUser={this.state.buzzUser} onFinish={() => this.onSoundPlayFinished()} />
+        { hasConnection && <BuzzerSound buzzUser={this.state.buzzUser} onFinish={() => this.onSoundPlayFinished()} /> }
       </div>
     );
   }
