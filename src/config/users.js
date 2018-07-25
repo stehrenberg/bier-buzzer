@@ -1,26 +1,27 @@
 import SoundAndre from '../assets/sound/andre.mp3';
 import SoundJochen from '../assets/sound/jochen.mp3';
 import SoundSebastian from '../assets/sound/sebastian.mp3';
+import roles from './roles.js';
 
 const users = [
     {
         name: "André",
-        role: "player",
+        role: roles.ROLE_PLAYER,
         soundFile: SoundAndre
     },
     {
         name: "Jochen",
-        role: "player",
+        role: roles.ROLE_PLAYER,
         soundFile: SoundJochen
     },
     {
         name: "Sebastian",
-        role: "player",
+        role: roles.ROLE_PLAYER,
         soundFile: SoundSebastian
     },
     {
         name: "Dominik",
-        role: "gamehost"
+        role: roles.ROLE_HOST
     },
 ];
 

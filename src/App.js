@@ -6,6 +6,7 @@ import logo from './style-altbier.svg';
 import './App.css';
 import Logout from '@material-ui/icons/LockOpen';
 import localStorageConfig from './config/localStorage.js';
+import roles from './config/roles.js';
 
 class App extends Component {
   logout() {
@@ -16,6 +17,9 @@ class App extends Component {
   }
 
   render() {
+    const userRole = localStorage.getItem(localStorageConfig.ROLE);
+    const isUserPlayer = (userRole === roles.ROLE_PLAYER);
+
     return (
       <div className="App">
         <header className="App-header">
@@ -24,7 +28,7 @@ class App extends Component {
           <Logout className="Logout" onClick={() => this.logout()} />
         </header>
           <Login />
-          <Buzzer />
+          { isUserPlayer && <Buzzer /> }
       </div>
     );
   }
