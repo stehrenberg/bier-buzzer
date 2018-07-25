@@ -6,12 +6,13 @@ import NoConnection from './NoConnection.js';
 import Sockette from 'sockette';
 import localStorageConfig from '../config/localStorage.js';
 import roles from '../config/roles.js';
+import websocketConfig from '../config/websocket.js';
 
 class Buzzer extends React.Component {
   constructor(props) {
     super(props);
 
-    this.connection = new Sockette('ws://localhost:8080', {
+    this.connection = new Sockette(websocketConfig.address, {
       onmessage: this.onMessage.bind(this),
       onopen: this.onConnectionEstablished.bind(this),
       onclose: this.onConnectionLost.bind(this),
