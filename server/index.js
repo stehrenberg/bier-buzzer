@@ -28,8 +28,6 @@ wsServer.on('request', request => {
   });
 
   connection.on('close', () => {
-    const connectionIndex = wsConnections.findIndex(wsConnection => wsConnection === connection);
-    wsConnections = wsConnections.slice(connectionIndex, 1);
     console.log(`Connection to ${connection.remoteAddress} closed`);
   })
 });
