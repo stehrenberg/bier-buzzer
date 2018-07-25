@@ -54,6 +54,7 @@ class Login extends Component {
       localStorage.setItem(localStorageConfig.USERNAME, user.name);
       localStorage.setItem(localStorageConfig.ROLE, user.role);
       localStorage.setItem(localStorageConfig.POINTS, 0);
+      this.props.onLogin();
     }
 }
 

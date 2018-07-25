@@ -6,9 +6,16 @@ import logo from './style-altbier.svg';
 import './App.css';
 import Logout from '@material-ui/icons/LockOpen';
 import localStorageConfig from './config/localStorage.js';
-import roles from './config/roles.js';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isLoggedIn: false
+    };
+  }
+
   logout() {
     localStorage.removeItem(localStorageConfig.USERNAME);
     localStorage.removeItem(localStorageConfig.ROLE);
@@ -16,10 +23,13 @@ class App extends Component {
     window.location.reload();
   }
 
-  render() {
-    const userRole = localStorage.getItem(localStorageConfig.ROLE);
-    const isUserPlayer = (userRole === roles.ROLE_PLAYER);
+  onLogin() {
+    this.setState({
+      isLoggedIn: true
+    });
+  }
 
+  render() {
     return (
       <div className="App">
         <header className="App-header">
@@ -27,8 +37,8 @@ class App extends Component {
           <h1 className="App-title">Beer Buzzer</h1>
           <Logout className="Logout" onClick={() => this.logout()} />
         </header>
-          <Login />
-          { isUserPlayer && <Buzzer /> }
+          <Login onLogin={this.onLogin.bind(this)} />
+          <Buzzer isLoggedIn={this.state.isLoggedIn} />
       </div>
     );
   }
