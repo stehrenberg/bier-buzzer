@@ -20,6 +20,7 @@ class Buzzer extends React.Component {
 
     this.state = {
       buzzUser: null,
+      isOpen: true,
       hasConnection: false
     };
   }
@@ -45,8 +46,23 @@ class Buzzer extends React.Component {
 
   onMessage(message) {
     const messageData = JSON.parse(message.data);
+
+    if (messageData.type === 'reopen') {
+      this.setState({
+        isOpen: true,
+        buzzUser: null
+      });
+
+      return;
+    }
+
+    if (!this.state.isOpen) {
+      return;
+    }
+
     this.setState({
-      buzzUser: messageData.user
+      buzzUser: messageData.user,
+      isOpen: false
     });
   }
 
@@ -54,8 +70,8 @@ class Buzzer extends React.Component {
   }
 
   reset() {
-    this.setState({
-      buzzUser: null
+    this.connection.json({
+      type: 'reopen'
     });
   }
 
