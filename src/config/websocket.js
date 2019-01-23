@@ -1,5 +1,5 @@
 const websocketConfig = {
-  address: 'ws://localhost:8080'
+  address: 'ws://score11.de:8080'
 };
 
 export default websocketConfig;
