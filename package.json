@@ -18,9 +18,10 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "deply": "rsync -avz build/* pod:/srv/www/gamespodcast.de/htdocs/buzzer",
+    "deploy": "rsync -avz build/* pod:/srv/www/gamespodcast.de/htdocs/buzzer",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "server": "node server/index.js"
+    "server": "node server/index.js",
+    "server:ssl": "node server/ssl.js"
   }
 }
