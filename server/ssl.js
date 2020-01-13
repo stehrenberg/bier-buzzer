@@ -1,18 +1,20 @@
 const WebsocketServer = require('websocket').server;
-const http = require('http');
+const http = require('https');
 const system = require('process');
+const fs = require('fs');
 
 const port = process.env.PORT || 8080;
-const server = http.createServer();
+const server = http.createServer({
+  key: fs.readFileSync("/srv/letsencrypt/certs/gamespodcast.de/privkey.pem"),
+  cert: fs.readFileSync("/srv/letsencrypt/certs/gamespodcast.de/chain.pem"),
+  ca: fs.readFileSync("/srv/letsencrypt/certs/gamespodcast.de/chain.pem")
+});
 
 let wsConnections = [];
 
 var wsServer = new WebsocketServer({
   httpServer: server,
-  autoAcceptConnections: false,
-  ssl: true,
-  ssl_key: "/srv/letsencrypt/certs/gamespodcast.de/privkey.pem",
-  ssl_cert: "/srv/letsencrypt/certs/gamespodcast.de/chain.pem"
+  autoAcceptConnections: false
 });
 
 wsServer.on('request', request => {
