@@ -1,30 +1,35 @@
-import SoundAndre from '../assets/sound/andre.mp3';
-import SoundJochen from '../assets/sound/FinishHimJochen.wav';
-import SoundSebastian from '../assets/sound/FinishHimSebastian.wav';
-import SoundDominik from '../assets/sound/FinishHimDominik.wav';
+import SoundAndre from '../assets/sound/Andre2020.mp3';
+import SoundSebastian from '../assets/sound/Sebastian2020.mp3';
+import SoundGunnar from '../assets/sound/Gunnar2020.mp3';
+import SoundChristian from '../assets/sound/Christian2020.mp3';
 import roles from './roles.js';
 
 const users = [
-    {
-        name: "André",
-        role: roles.ROLE_HOST,
-        soundFile: SoundAndre
-    },
-    {
-        name: "Jochen",
-        role: roles.ROLE_PLAYER,
-        soundFile: SoundJochen
-    },
-    {
-        name: "Sebastian",
-        role: roles.ROLE_PLAYER,
-        soundFile: SoundSebastian
-    },
-    {
-        name: "Dominik",
-        role: roles.ROLE_PLAYER,
-        soundFile: SoundDominik
-    },
+  {
+    name: "André",
+    role: roles.ROLE_PLAYER,
+    soundFile: SoundAndre
+  },
+  {
+    name: "Christian",
+    role: roles.ROLE_PLAYER,
+    soundFile: SoundChristian
+  },
+  {
+    name: "Dom",
+    role: roles.ROLE_HOST,
+    soundFile: SoundAndre
+  },
+  {
+    name: "Gunnar",
+    role: roles.ROLE_PLAYER,
+    soundFile: SoundGunnar
+  },
+  {
+    name: "Sebastian",
+    role: roles.ROLE_PLAYER,
+    soundFile: SoundSebastian
+  }
 ];
 
 export default users;
