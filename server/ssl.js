@@ -6,7 +6,7 @@ const fs = require('fs');
 const port = process.env.PORT || 8080;
 const server = http.createServer({
   key: fs.readFileSync("/srv/letsencrypt/certs/gamespodcast.de/privkey.pem"),
-  cert: fs.readFileSync("/srv/letsencrypt/certs/gamespodcast.de/chain.pem"),
+  cert: fs.readFileSync("/srv/letsencrypt/certs/gamespodcast.de/fullchain.pem"),
   ca: fs.readFileSync("/srv/letsencrypt/certs/gamespodcast.de/chain.pem")
 });
 
