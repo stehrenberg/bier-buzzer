@@ -14,6 +14,7 @@ let wsConnections = [];
 
 var wsServer = new WebsocketServer({
   httpServer: server,
+  ssl: true,
   autoAcceptConnections: false
 });
 
