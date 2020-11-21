@@ -13,7 +13,7 @@ body {
   padding: 10px 20px;
   width: auto;
   display: inline-block;
-  background: #c26803;
+  /* background: linear-gradient(to right, #c26803, #c26803 calc(100% - 10px), #fff calc(100% - 9px)); */
   border: 2px solid #cfd2d3;
   border-radius: 5px 0 0 5px;
   color: #fff;
@@ -34,14 +34,20 @@ body {
 .host-button::after {
   content: "";
   position: absolute;
-  right: 0px;
-  left: calc(100% - 10px);
+  left: 0px;
+  right: 10px;
   top: 0px;
   bottom: 0px;
-  background: #fff;
+  background: #c26803;
+  z-index: -1;
+  transition: all 0.5s ease-out;
 }
 
 .host-button.inactive {
-  background-color: #fff;
   color: #000;
+}
+
+.host-button.inactive::after {
+  transition: all 0.5s ease-in;
+  right: 50%;
 }
