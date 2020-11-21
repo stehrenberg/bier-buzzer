@@ -1,7 +1,6 @@
 import SoundAndre from '../assets/sound/Andre2020.mp3';
 import SoundSebastian from '../assets/sound/Sebastian2020.mp3';
-import SoundGunnar from '../assets/sound/Gunnar2020.mp3';
-import SoundChristian from '../assets/sound/Christian2020.mp3';
+import SoundJochen from '../assets/sound/FinishHimJochen.wav';
 import roles from './roles.js';
 
 const users = [
@@ -11,19 +10,14 @@ const users = [
     soundFile: SoundAndre
   },
   {
-    name: "Christian",
-    role: roles.ROLE_PLAYER,
-    soundFile: SoundChristian
-  },
-  {
-    name: "Dom",
+    name: "Dominik",
     role: roles.ROLE_HOST,
     soundFile: SoundAndre
   },
   {
-    name: "Gunnar",
+    name: "Jochen",
     role: roles.ROLE_PLAYER,
-    soundFile: SoundGunnar
+    soundFile: SoundJochen
   },
   {
     name: "Sebastian",
