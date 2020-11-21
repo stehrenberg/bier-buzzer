@@ -8,6 +8,7 @@ class LastBuzz extends React.Component {
   render() {
     return (
       <div>
+        <p>Current mode: {this.props.mode}</p>
         <p>Last buzz by: {this.props.buzzUser}</p>
         <p className="host-button" onClick={() => this.reset()}>Reset</p>
       </div>

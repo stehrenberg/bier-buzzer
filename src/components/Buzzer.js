@@ -23,7 +23,9 @@ class Buzzer extends React.Component {
 
     this.state = {
       buzzUser: null,
+      lastBuzzBy: null,
       isOpen: true,
+      mode: 'normal',
       hasConnection: false
     };
   }
@@ -53,7 +55,19 @@ class Buzzer extends React.Component {
     if (messageData.type === 'reopen') {
       this.setState({
         isOpen: true,
-        buzzUser: null
+        buzzUser: null,
+        lastBuzzBy: null
+      });
+
+      return;
+    }
+
+    if (messageData.type === 'change-mode') {
+      this.setState({
+        mode: messageData.modeName,
+        buzzUser: null,
+        lastBuzzBy: null,
+        isOpen: true,
       });
 
       return;
@@ -64,10 +78,19 @@ class Buzzer extends React.Component {
     }
 
     if (messageData.type === 'buzz' || messageData.type === 'host-sound') {
-      this.setState({
-        buzzUser: messageData.user,
-        isOpen: false
-      });
+      if (messageData.type === 'buzz' && this.state.mode === 'familienduell') {
+        this.setState({
+          buzzUser: 'fd-buzzer',
+          lastBuzzBy: messageData.user,
+          isOpen: false
+        });
+      } else {
+        this.setState({
+          buzzUser: messageData.user,
+          lastBuzzBy: messageData.user,
+          isOpen: false
+        });
+      }
     }
   }
 
@@ -81,14 +104,18 @@ class Buzzer extends React.Component {
   }
 
   playHostSound(soundName) {
-    this.connection.json({})
-
     this.connection.json({
       type: 'host-sound',
       user: soundName
     });
   }
 
+  changeMode(modeName) {
+    this.connection.json({
+      type: 'change-mode',
+      modeName
+    });
+  }
 
   render() {
     const userRole = localStorage.getItem(localStorageConfig.ROLE);
@@ -101,8 +128,8 @@ class Buzzer extends React.Component {
       <div>
         <NoConnection hasConnection={this.state.hasConnection} />
         { isUserPlayer && <BuzzerImage onBuzz={() => this.onBuzz()} /> }
-        { isUserHost && <LastBuzz buzzUser={this.state.buzzUser} reset={this.reset.bind(this)} /> }
-        { isUserHost && <HostButtons onClick={(soundName) => this.playHostSound(soundName)} />}
+        { isUserHost && <LastBuzz mode={this.state.mode} buzzUser={this.state.lastBuzzBy} reset={this.reset.bind(this)} /> }
+        { isUserHost && <HostButtons changeMode={(modeName) => this.changeMode(modeName)} onClick={(soundName) => this.playHostSound(soundName)} />}
         { hasConnection && <BuzzerSound buzzUser={this.state.buzzUser} onFinish={() => this.onSoundPlayFinished()} /> }
       </div>
     );

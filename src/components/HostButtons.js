@@ -5,6 +5,14 @@ class HostButtons extends React.Component {
         this.props.onClick('slb-music');
     }
 
+    startFd() {
+        this.props.changeMode('familienduell');
+    }
+
+    stopFd() {
+        this.props.changeMode('normal');
+    }
+
     fdFail() {
         this.props.onClick('fd-fail');
     }
@@ -19,11 +27,19 @@ class HostButtons extends React.Component {
 
     render() {
         return (
+            <div>
             <div className="host-buttons">
+                <h2>Start, Loot, Boss</h2>
                 <p className="host-button" onClick={() => this.playSlbMusic()}>SLB Musik</p>
-                <p className="host-button" onClick={() => this.fdFail()}>FD: Falsche Antwort</p>
-                <p className="host-button" onClick={() => this.fdCorrect()}>FD: Richtig</p>
-                <p className="host-button" onClick={() => this.fdPersons()}>FD: Sagten auch</p>
+            </div>
+            <div className="host-buttons">
+                <h2>Familienduell</h2>
+                <p className="host-button" onClick={() => this.startFd()}>Starten</p>
+                <p className="host-button" onClick={() => this.fdFail()}>Falsche Antwort</p>
+                <p className="host-button" onClick={() => this.fdCorrect()}>Richtig</p>
+                <p className="host-button" onClick={() => this.fdPersons()}>Sagten auch</p>
+                <p className="host-button" onClick={() => this.stopFd()}>Beenden</p>
+            </div>
             </div>
         );
     }
