@@ -34,11 +34,11 @@ class HostButtons extends React.Component {
             </div>
             <div className="host-buttons">
                 <h2>Familienduell</h2>
-                <p className="host-button" onClick={() => this.startFd()}>Starten</p>
+                <p className={`host-button ${this.props.mode === 'familienduell' ? 'inactive' : ''}`} onClick={() => this.startFd()}>Starten</p>
                 <p className="host-button" onClick={() => this.fdFail()}>Falsche Antwort</p>
                 <p className="host-button" onClick={() => this.fdCorrect()}>Richtig</p>
                 <p className="host-button" onClick={() => this.fdPersons()}>Sagten auch</p>
-                <p className="host-button" onClick={() => this.stopFd()}>Beenden</p>
+                <p className={`host-button ${this.props.mode === 'normal' ? 'inactive' : ''}`} onClick={() => this.stopFd()}>Beenden</p>
             </div>
             </div>
         );
