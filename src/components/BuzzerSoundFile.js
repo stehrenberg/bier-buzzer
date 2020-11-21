@@ -4,10 +4,16 @@ class BuzzerSoundFile extends React.Component {
   constructor(props) {
     super(props);
 
-    const soundFile = new Audio(this.props.user.soundFile);
+    const soundFile = new Audio();
     soundFile.onEnded = () => this.props.onFinish();
+    this.state = {}
 
-    this.state = {soundFile};
+    const soundLoaded = () => {
+      this.setState({soundFile});
+    };
+
+    soundFile.addEventListener('canplaythrough', soundLoaded.bind(this))
+    soundFile.src = this.props.user.soundFile
   }
 
   componentDidUpdate() {
