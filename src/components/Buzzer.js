@@ -23,7 +23,7 @@ class Buzzer extends React.Component {
 
     this.state = {
       buzzUser: null,
-      lastBuzzBy: null,
+      lastBuzzBy: [],
       isOpen: true,
       mode: 'normal',
       hasConnection: false
@@ -45,7 +45,8 @@ class Buzzer extends React.Component {
   onBuzz() {
     this.connection.json({
       type: 'buzz',
-      user: localStorage.getItem(localStorageConfig.USERNAME)
+      user: localStorage.getItem(localStorageConfig.USERNAME),
+      time: new Date().getTime()
     });
   }
 
@@ -56,7 +57,7 @@ class Buzzer extends React.Component {
       this.setState({
         isOpen: true,
         buzzUser: null,
-        lastBuzzBy: null
+        lastBuzzBy: []
       });
 
       return;
@@ -66,7 +67,7 @@ class Buzzer extends React.Component {
       this.setState({
         mode: messageData.modeName,
         buzzUser: null,
-        lastBuzzBy: null,
+        lastBuzzBy: [],
         isOpen: true,
       });
 
@@ -74,20 +75,37 @@ class Buzzer extends React.Component {
     }
 
     if (!this.state.isOpen) {
+      const lastBuzzBy = [...this.state.lastBuzzBy]
+      lastBuzzBy.push({
+        user: messageData.user,
+        time: messageData.time
+      });
+
+      this.setState({
+        buzzUser: null,
+        lastBuzzBy,
+      });
+
       return;
     }
 
     if (messageData.type === 'buzz' || messageData.type === 'host-sound') {
+      const lastBuzzBy = [...this.state.lastBuzzBy]
+      lastBuzzBy.push({
+        user: messageData.user,
+        time: messageData.time
+      });
+
       if (messageData.type === 'buzz' && this.state.mode === 'familienduell') {
         this.setState({
           buzzUser: 'fd-buzzer',
-          lastBuzzBy: messageData.user,
+          lastBuzzBy,
           isOpen: false
         });
       } else {
         this.setState({
           buzzUser: messageData.user,
-          lastBuzzBy: messageData.user,
+          lastBuzzBy,
           isOpen: false
         });
       }
@@ -106,7 +124,8 @@ class Buzzer extends React.Component {
   playHostSound(soundName) {
     this.connection.json({
       type: 'host-sound',
-      user: soundName
+      user: soundName,
+      time: new Date().getTime()
     });
   }
 
@@ -128,7 +147,7 @@ class Buzzer extends React.Component {
       <div>
         <NoConnection hasConnection={this.state.hasConnection} />
         { isUserPlayer && <BuzzerImage onBuzz={() => this.onBuzz()} /> }
-        { isUserHost && <LastBuzz mode={this.state.mode} buzzUser={this.state.lastBuzzBy} reset={this.reset.bind(this)} /> }
+        { isUserHost && <LastBuzz mode={this.state.mode} lastBuzzBy={this.state.lastBuzzBy} reset={this.reset.bind(this)} /> }
         { isUserHost && <HostButtons changeMode={(modeName) => this.changeMode(modeName)} onClick={(soundName) => this.playHostSound(soundName)} />}
         { hasConnection && <BuzzerSound buzzUser={this.state.buzzUser} onFinish={() => this.onSoundPlayFinished()} /> }
       </div>
