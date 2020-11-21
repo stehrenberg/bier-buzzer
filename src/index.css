@@ -3,3 +3,38 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.host-reset {
+  cursor: pointer;
+}
+
+.host-button {
+  padding: 10px 20px;
+  width: auto;
+  display: inline-block;
+  background: #c26803;
+  border: 2px solid #cfd2d3;
+  border-radius: 5px 0 0 5px;
+  color: #fff;
+  position: relative;
+}
+
+.host-button::before {
+  content: "";
+  position: absolute;
+  right: 10px;
+  left: 2px;
+  top: 5px;
+  bottom: calc(100% - 7px);
+  background: #fff;
+}
+
+.host-button::after {
+  content: "";
+  position: absolute;
+  right: 0px;
+  left: calc(100% - 10px);
+  top: 0px;
+  bottom: 0px;
+  background: #fff;
+}
