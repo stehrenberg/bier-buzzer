@@ -18,6 +18,7 @@ body {
   border-radius: 5px 0 0 5px;
   color: #fff;
   position: relative;
+  transition: all 0.3s linear;
 }
 
 .host-button::before {
@@ -38,4 +39,9 @@ body {
   top: 0px;
   bottom: 0px;
   background: #fff;
+}
+
+.host-button.inactive {
+  background-color: #fff;
+  color: #000;
 }
