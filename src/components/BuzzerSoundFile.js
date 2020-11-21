@@ -23,6 +23,9 @@ class BuzzerSoundFile extends React.Component {
   }
 
   render() {
+    if(!this.state.soundFile) {
+      return <p>Loading soundfile {this.props.user.soundFile}...</p>
+    }
     return '';
   }
 }
