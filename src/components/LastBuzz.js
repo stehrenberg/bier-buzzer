@@ -9,7 +9,7 @@ class LastBuzz extends React.Component {
     return (
       <div>
         <p>Last buzz by: {this.props.buzzUser}</p>
-        <p className="host-reset host-button" onClick={() => this.reset()}>Reset</p>
+        <p className="host-button" onClick={() => this.reset()}>Reset</p>
       </div>
   );
   }

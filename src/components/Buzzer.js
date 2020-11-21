@@ -7,6 +7,8 @@ import Sockette from 'sockette';
 import localStorageConfig from '../config/localStorage.js';
 import roles from '../config/roles.js';
 import websocketConfig from '../config/websocket.js';
+import HostButtons from './HostButtons.js';
+import sounds from '../config/sounds.js';
 
 class Buzzer extends React.Component {
   constructor(props) {
@@ -61,7 +63,7 @@ class Buzzer extends React.Component {
       return;
     }
 
-    if (messageData.type === 'buzz') {
+    if (messageData.type === 'buzz' || messageData.type === 'host-sound') {
       this.setState({
         buzzUser: messageData.user,
         isOpen: false
@@ -78,6 +80,15 @@ class Buzzer extends React.Component {
     });
   }
 
+  playHostSound(soundName) {
+    this.connection.json({})
+
+    this.connection.json({
+      type: 'host-sound',
+      user: soundName
+    });
+  }
+
 
   render() {
     const userRole = localStorage.getItem(localStorageConfig.ROLE);
@@ -91,6 +102,7 @@ class Buzzer extends React.Component {
         <NoConnection hasConnection={this.state.hasConnection} />
         { isUserPlayer && <BuzzerImage onBuzz={() => this.onBuzz()} /> }
         { isUserHost && <LastBuzz buzzUser={this.state.buzzUser} reset={this.reset.bind(this)} /> }
+        { isUserHost && <HostButtons onClick={(soundName) => this.playHostSound(soundName)} />}
         { hasConnection && <BuzzerSound buzzUser={this.state.buzzUser} onFinish={() => this.onSoundPlayFinished()} /> }
       </div>
     );

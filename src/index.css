@@ -4,11 +4,12 @@ body {
   font-family: sans-serif;
 }
 
-.host-reset {
-  cursor: pointer;
+.host-buttons .host-button {
+  margin-right: 10px;
 }
 
 .host-button {
+  cursor: pointer;
   padding: 10px 20px;
   width: auto;
   display: inline-block;
