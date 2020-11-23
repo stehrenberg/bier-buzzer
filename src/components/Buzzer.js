@@ -73,6 +73,12 @@ class Buzzer extends React.Component {
       return;
     }
 
+    if (messageData.type === 'host-sound') {
+      this.setState({
+        buzzUser: messageData.user,
+      });
+    }
+
     if (!this.state.isOpen) {
       const lastBuzzBy = [...this.state.lastBuzzBy]
       lastBuzzBy.push({
@@ -88,7 +94,7 @@ class Buzzer extends React.Component {
       return;
     }
 
-    if (messageData.type === 'buzz' || messageData.type === 'host-sound') {
+    if (messageData.type === 'buzz') {
       const lastBuzzBy = [...this.state.lastBuzzBy]
       lastBuzzBy.push({
         user: messageData.user,
