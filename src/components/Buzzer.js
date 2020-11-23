@@ -1,5 +1,6 @@
 import React from 'react';
 import BuzzerImage from './BuzzerImage.js';
+import NailImage from './NailImage.js';
 import BuzzerSound from './BuzzerSound.js';
 import LastBuzz from './LastBuzz.js';
 import NoConnection from './NoConnection.js';
@@ -25,7 +26,8 @@ class Buzzer extends React.Component {
       lastBuzzBy: [],
       isOpen: true,
       mode: 'normal',
-      hasConnection: false
+      hasConnection: false,
+      canNail: true
     };
   }
 
@@ -47,6 +49,20 @@ class Buzzer extends React.Component {
       user: localStorage.getItem(localStorageConfig.USERNAME),
       time: new Date().getTime()
     });
+  }
+
+  onNail() {
+    if (this.state.canNail && this.state.isOpen) {
+      this.connection.json({
+        type: 'nail',
+        user: localStorage.getItem(localStorageConfig.USERNAME),
+        time: new Date().getTime()
+      });
+
+      this.setState({
+        canNail: false
+      });
+    }
   }
 
   onMessage(message) {
@@ -92,6 +108,20 @@ class Buzzer extends React.Component {
       });
 
       return;
+    }
+
+    if (messageData.type === 'nail') {
+      const lastBuzzBy = [...this.state.lastBuzzBy]
+      lastBuzzBy.push({
+        user: `${messageData.user} (Nageln)`,
+        time: messageData.time
+      });
+
+      this.setState({
+        buzzUser: 'nail',
+        lastBuzzBy,
+        isOpen: false 
+      });
     }
 
     if (messageData.type === 'buzz') {
@@ -152,6 +182,7 @@ class Buzzer extends React.Component {
       <div>
         <NoConnection hasConnection={this.state.hasConnection} />
         { isUserPlayer && <BuzzerImage onBuzz={() => this.onBuzz()} /> }
+        { isUserPlayer && this.state.canNail && <NailImage onNail={() => this.onNail()} />}
         { isUserHost && <LastBuzz isOpen={this.state.isOpen} mode={this.state.mode} lastBuzzBy={this.state.lastBuzzBy} reset={this.reset.bind(this)} /> }
         { isUserHost && <HostButtons  mode={this.state.mode} changeMode={(modeName) => this.changeMode(modeName)} onClick={(soundName) => this.playHostSound(soundName)} />}
         { hasConnection && <BuzzerSound buzzUser={this.state.buzzUser} onFinish={() => this.onSoundPlayFinished()} /> }

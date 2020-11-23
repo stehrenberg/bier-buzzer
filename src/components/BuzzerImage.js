@@ -28,14 +28,16 @@ class BuzzerImage extends React.Component {
 
   render() {
     return (
-      <img
-        src={this.state.buzzer}
-        className="Buzzer"
-        alt="Buzz!"
-        onMouseOver={() => this.onMouseOver()}
-        onMouseOut={() => this.onMouseOut()}
-        onClick={() => this.props.onBuzz()}
-      />
+      <div>
+        <img
+          src={this.state.buzzer}
+          className="Buzzer"
+          alt="Buzz!"
+          onMouseOver={() => this.onMouseOver()}
+          onMouseOut={() => this.onMouseOut()}
+          onClick={() => this.props.onBuzz()}
+        />
+      </div>
     );
   }
 }
