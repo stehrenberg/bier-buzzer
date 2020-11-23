@@ -81,9 +81,22 @@ class Buzzer extends React.Component {
     if (messageData.type === 'change-mode') {
       this.setState({
         mode: messageData.modeName,
+        canNail: messageData.canNail,
         buzzUser: null,
         lastBuzzBy: [],
         isOpen: true,
+      });
+
+      return;
+    }
+
+    if (messageData.type === 'start-new-round') {
+      this.setState({
+        buzzUser: null,
+        lastBuzzBy: [],
+        isOpen: true,
+        canNail: true,
+        mode: 'normal'
       });
 
       return;
@@ -164,10 +177,17 @@ class Buzzer extends React.Component {
     });
   }
 
-  changeMode(modeName) {
+  changeMode(modeName, canNail) {
     this.connection.json({
       type: 'change-mode',
-      modeName
+      modeName,
+      canNail
+    });
+  }
+
+  startNewRound() {
+    this.connection.json({
+      type: 'start-new-round'
     });
   }
 
@@ -184,7 +204,7 @@ class Buzzer extends React.Component {
         { isUserPlayer && <BuzzerImage onBuzz={() => this.onBuzz()} /> }
         { isUserPlayer && this.state.canNail && <NailImage onNail={() => this.onNail()} />}
         { isUserHost && <LastBuzz isOpen={this.state.isOpen} mode={this.state.mode} lastBuzzBy={this.state.lastBuzzBy} reset={this.reset.bind(this)} /> }
-        { isUserHost && <HostButtons  mode={this.state.mode} changeMode={(modeName) => this.changeMode(modeName)} onClick={(soundName) => this.playHostSound(soundName)} />}
+        { isUserHost && <HostButtons startNewRound={() => this.startNewRound()} mode={this.state.mode} changeMode={(modeName) => this.changeMode(modeName)} onClick={(soundName) => this.playHostSound(soundName)} />}
         { hasConnection && <BuzzerSound buzzUser={this.state.buzzUser} onFinish={() => this.onSoundPlayFinished()} /> }
       </div>
     );
