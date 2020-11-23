@@ -8,7 +8,6 @@ import localStorageConfig from '../config/localStorage.js';
 import roles from '../config/roles.js';
 import websocketConfig from '../config/websocket.js';
 import HostButtons from './HostButtons.js';
-import sounds from '../config/sounds.js';
 
 class Buzzer extends React.Component {
   constructor(props) {
