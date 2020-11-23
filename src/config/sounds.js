@@ -26,7 +26,6 @@ const sounds = [
         name: 'fd-buzzer',
         soundFile: fdBuzzer
     },
-    ,
     {
         name: 'nail',
         soundFile: nail
