@@ -202,9 +202,9 @@ class Buzzer extends React.Component {
       <div>
         <NoConnection hasConnection={this.state.hasConnection} />
         { isUserPlayer && <BuzzerImage onBuzz={() => this.onBuzz()} /> }
-        { isUserPlayer && this.state.canNail && <NailImage onNail={() => this.onNail()} />}
+        { false && isUserPlayer && this.state.canNail && <NailImage onNail={() => this.onNail()} />}
         { isUserHost && <LastBuzz isOpen={this.state.isOpen} mode={this.state.mode} lastBuzzBy={this.state.lastBuzzBy} reset={this.reset.bind(this)} /> }
-        { isUserHost && <HostButtons startNewRound={() => this.startNewRound()} mode={this.state.mode} changeMode={(modeName) => this.changeMode(modeName)} onClick={(soundName) => this.playHostSound(soundName)} />}
+        { false && isUserHost && <HostButtons startNewRound={() => this.startNewRound()} mode={this.state.mode} changeMode={(modeName) => this.changeMode(modeName)} onClick={(soundName) => this.playHostSound(soundName)} />}
         { hasConnection && <BuzzerSound buzzUser={this.state.buzzUser} onFinish={() => this.onSoundPlayFinished()} /> }
       </div>
     );
