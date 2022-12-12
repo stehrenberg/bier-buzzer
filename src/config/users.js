@@ -2,9 +2,15 @@ import SoundAndre from '../assets/sound/Andre2020.mp3';
 import SoundSebastian from '../assets/sound/Sebastian2020.mp3';
 import SoundJochen from '../assets/sound/FinishHimJochen.wav';
 import SoundDom from '../assets/sound/Dompotato_Buzzer.mp3';
+import SoundPaul from '../assets/sound/Paul_Quiz.mp3';
 import roles from './roles.js';
 
 const users = [
+  {
+    name: "Moderator",
+    role: roles.ROLE_HOST,
+    soundFile: SoundSebastian
+  },
   {
     name: "André",
     role: roles.ROLE_PLAYER,
@@ -22,8 +28,13 @@ const users = [
   },
   {
     name: "Sebastian",
-    role: roles.ROLE_HOST,
+    role: roles.ROLE_PLAYER,
     soundFile: SoundSebastian
+  },
+  {
+    name: "Paul",
+    role: roles.ROLE_PLAYER,
+    soundFile: SoundPaul
   }
 ];
 
