@@ -18,7 +18,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "deploy": "rsync -avz build/* pod:buzzer",
+    "deploy": "rsync -avz build/* root@pod:/srv/www/buzzer/app/client",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "server": "node server/index.js",
